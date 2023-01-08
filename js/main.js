@@ -1,116 +1,314 @@
-// Copyright 2021 Observable, Inc.
-// Released under the ISC license.
-// https://observablehq.com/@d3/grouped-bar-chart
-
-const chr = Array(['Volunteer', 'Donor']);
-
-d3.csv("../data/data.csv", GroupedBarChart(d, {
-  x: d => d.Age,
-    y: d => d.Respondents,
-    z: d => d.Charity,
-    xDomain: d3.groupSort(d, D => d3.sum(D, d => -d.Respondents), d => d.Age), // top 6
-    yLabel: "↑ Respondents",
-    zDomain: chr,
-    colors: d3.schemeSpectral[Charity.length],
-    width,
-    height: 500
-  })
-  
-);    
-
-function GroupedBarChart(data, {
-    x = (d, i) => i, // given d in data, returns the (ordinal) x-value
-    y = d => d, // given d in data, returns the (quantitative) y-value
-    z = () => 1, // given d in data, returns the (categorical) z-value
-    title, // given d in data, returns the title text
-    marginTop = 30, // top margin, in pixels
-    marginRight = 0, // right margin, in pixels
-    marginBottom = 30, // bottom margin, in pixels
-    marginLeft = 40, // left margin, in pixels
-    width = 640, // outer width, in pixels
-    height = 400, // outer height, in pixels
-    xDomain, // array of x-values
-    xRange = [marginLeft, width - marginRight], // [xmin, xmax]
-    xPadding = 0.1, // amount of x-range to reserve to separate groups
-    yType = d3.scaleLinear, // type of y-scale
-    yDomain, // [ymin, ymax]
-    yRange = [height - marginBottom, marginTop], // [ymin, ymax]
-    zDomain, // array of z-values
-    zPadding = 0.05, // amount of x-range to reserve to separate bars
-    yFormat, // a format specifier string for the y-axis
-    yLabel, // a label for the y-axis
-    colors = d3.schemeTableau10, // array of colors
-  } = {}) {
-    // Compute values.
-    const X = d3.map(data, x);
-    const Y = d3.map(data, y);
-    const Z = d3.map(data, z);
-  
-    // Compute default domains, and unique the x- and z-domains.
-    if (xDomain === undefined) xDomain = X;
-    if (yDomain === undefined) yDomain = [0, d3.max(Y)];
-    if (zDomain === undefined) zDomain = Z;
-    xDomain = new d3.InternSet(xDomain);
-    zDomain = new d3.InternSet(zDomain);
-  
-    // Omit any data not present in both the x- and z-domain.
-    const I = d3.range(X.length).filter(i => xDomain.has(X[i]) && zDomain.has(Z[i]));
-  
-    // Construct scales, axes, and formats.
-    const xScale = d3.scaleBand(xDomain, xRange).paddingInner(xPadding);
-    const xzScale = d3.scaleBand(zDomain, [0, xScale.bandwidth()]).padding(zPadding);
-    const yScale = yType(yDomain, yRange);
-    const zScale = d3.scaleOrdinal(zDomain, colors);
-    const xAxis = d3.axisBottom(xScale).tickSizeOuter(0);
-    const yAxis = d3.axisLeft(yScale).ticks(height / 60, yFormat);
-  
-    // Compute titles.
-    if (title === undefined) {
-      const formatValue = yScale.tickFormat(100, yFormat);
-      title = i => `${X[i]}\n${Z[i]}\n${formatValue(Y[i])}`;
-    } else {
-      const O = d3.map(data, d => d);
-      const T = title;
-      title = i => T(O[i], i, data);
+const volunteers = [
+    {
+      age: '15 - 24 years',
+      value: 505,
+      avr: 20
+    },
+    {
+      age: '25 - 34 years',
+      value: 919,
+      avr: 18
+    },
+    {
+      age: '35 - 44 years',
+      value: 1481,
+      avr: 35
+    },
+    {
+      age: '45 - 54 years',
+      value: 1390,
+      avr: 38
+    },
+    {
+      age: '55 - 64 years',
+      value: 1707,
+      avr: 24
+    },
+    {
+      age: '65 - 74 years',
+      value: 1560,
+      avr: 40
+    },
+    {
+      age: '75+ years',
+      value: 803,
+      avr: 30
     }
-  
-    const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [0, 0, width, height])
-        .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
-  
-    svg.append("g")
-        .attr("transform", `translate(${marginLeft},0)`)
-        .call(yAxis)
-        .call(g => g.select(".domain").remove())
-        .call(g => g.selectAll(".tick line").clone()
-            .attr("x2", width - marginLeft - marginRight)
-            .attr("stroke-opacity", 0.1))
-        .call(g => g.append("text")
-            .attr("x", -marginLeft)
-            .attr("y", 10)
-            .attr("fill", "currentColor")
-            .attr("text-anchor", "start")
-            .text(yLabel));
-  
-    const bar = svg.append("g")
-      .selectAll("rect")
-      .data(I)
-      .join("rect")
-        .attr("x", i => xScale(X[i]) + xzScale(Z[i]))
-        .attr("y", i => yScale(Y[i]))
-        .attr("width", xzScale.bandwidth())
-        .attr("height", i => yScale(0) - yScale(Y[i]))
-        .attr("fill", i => zScale(Z[i]));
-  
-    if (title) bar.append("title")
-        .text(title);
-  
-    svg.append("g")
-        .attr("transform", `translate(0,${height - marginBottom})`)
-        .call(xAxis);
-  
-    return Object.assign(svg.node(), {scales: {color: zScale}});
-  }
+  ];
 
+  const donors = [
+    {
+      age: '15 - 24 years',
+      value: 406,
+      avr: 15
+    },
+    {
+      age: '25 - 34 years',
+      value: 1293,
+      avr: 30
+    },
+    {
+      age: '35 - 44 years',
+      value: 1870,
+      avr: 45
+    },
+    {
+      age: '45 - 54 years',
+      value: 1954,
+      avr: 48
+    },
+    {
+      age: '55 - 64 years',
+      value: 2701,
+      avr: 32
+    },
+    {
+      age: '65 - 74 years',
+      value: 2439,
+      avr: 30
+    },
+    {
+      age: '75+ years',
+      value: 1491,
+      avr: 50
+    }
+  ];
+
+  const svg = d3.select('svg');
+  const svgContainer = d3.select('#main_stats');
+  
+  const margin = 80; // margin of barchart
+  const width = 1000 - 2 * margin;
+  const height = 600 - 2 * margin;  
+
+  const chart = svg.append('g')
+    .attr('transform', `translate(${margin}, ${margin})`);
+   // .attr("viewBox", [margin, margin, width, height]);
+
+  const xScale = d3.scaleBand()
+    .range([0, width])
+    .domain(volunteers.map((s) => s.age)) // categories for x axis
+    .padding(0.5)
+  
+  const max_val =  d3.max([d3.max(volunteers, s=>s.value), d3.max(donors, s=>s.value)]);
+  const yScale_v = d3.scaleLinear() 
+                    .range([height, 0])
+                    .domain([0, d3.max(volunteers, s=>s.value)]);
+
+  const yScale_d = [0, d3.max(donors, s=>s.value)];
+  const yScale = d3.scaleLinear() 
+    .range([height, 0])
+    .domain([0, max_val+100]);// maximum of values for y axis + 100 extra
+   
+
+// horizontal grid lines 
+
+  const makeYLines = () => d3.axisLeft() 
+    .scale(yScale)
+
+  chart.append('g')
+    .attr('transform', `translate(0, ${height})`)
+    .call(d3.axisBottom(xScale));
+
+  chart.append('g')
+    .call(d3.axisLeft(yScale));
+
+  // vertical grid lines
+  // chart.append('g')
+  //   .attr('class', 'grid')
+  //   .attr('transform', `translate(0, ${height})`)
+  //   .call(makeXLines()
+  //     .tickSize(-height, 0, 0)
+  //     .tickFormat('')
+  //   )
+
+  chart.append('g')
+    .attr('class', 'grid')
+    .call(makeYLines()
+      .tickSize(-width, 0, 0)
+      .tickFormat('')
+    )
+
+  const barGroups = chart.selectAll()
+    .data(volunteers)
+    .enter()
+    .append('g')
+
+  barGroups
+    .append('rect')
+    .attr('id', 'bar_v')
+    .attr('x', (g) => xScale(g.age))
+    .attr('y', (g) => yScale(g.value))
+    .attr('height', (g) => height - yScale(g.value))
+    .attr('width', xScale.bandwidth()/2+5)
+    .on('mouseenter', function (actual,i) {
+      d3.selectAll('.value_v')
+        .attr('opacity', 0)
+
+      chart.selectAll('#bar_d').attr('opacity', 0.3)
+
+      chart.selectAll('.value_d').attr('opacity', 0)
+
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('opacity', 0.7)
+        .attr('x', (a) => xScale(a.age))
+        .attr('width', xScale.bandwidth()/2+5)
+
+      const y = yScale(actual.value);
+     
+      line = chart.append('line') // yellow dotted line 
+        .attr('id', 'limit')
+        .attr('x1', 0)
+        .attr('y1', y)
+        .attr('x2', width)
+        .attr('y2', y)
+    
+        barGroups.append('text')
+        .attr('class', 'divergence_v')
+        .attr('x', (a) => xScale(a.age) + xScale.bandwidth() /5 +5)
+        .attr('y', (a) => yScale(a.value) + 30)
+        .attr('text-anchor', 'middle')
+        .text((a) => `${a.avr} h.`)
+        })    
+        
+    .on('mouseleave', function () {
+      d3.selectAll('.value_v')
+        .attr('opacity', 1)
+        d3.selectAll('#bar_d')
+        .attr('opacity', 1)
+  
+        d3.selectAll('.value_d')
+        .attr('opacity', 1)
+
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('opacity', 1)
+        .attr('x', (a) => xScale(a.age))
+        .attr('width', xScale.bandwidth()/2+5)
+
+      chart.selectAll('#limit').remove()
+      chart.selectAll('.divergence_v').remove()
+    })
+
+    barGroups
+    .append('text')
+    .attr('class', 'value_v')
+    .attr('x', (a) => xScale(a.age) + xScale.bandwidth() /5 +5)
+    .attr('y', (a) => yScale(a.value) + 20)
+    .attr('text-anchor', 'middle')
+    .text((a) => `${a.value}`)
+  
+  svg
+    .append('text')
+    .attr('class', 'label')
+    .attr('x', -(height / 2) - margin)
+    .attr('y', margin / 2.4)
+    .attr('transform', 'rotate(-90)')
+    .attr('text-anchor', 'middle')
+    .text('Respondednts')
+
+  svg.append('text')
+    .attr('class', 'label')
+    .attr('x', width / 2 + margin)
+    .attr('y', height + margin * 1.7)
+    .attr('text-anchor', 'middle')
+    .text('Age groups')
+
+  svg.append('text')
+    .attr('class', 'title')
+    .attr('x', width / 2 + margin)
+    .attr('y', 40)
+    .attr('text-anchor', 'middle')
+    .text('Volunteers in Canada accroding to Age groups')
+
+  svg.append('text')
+    .attr('class', 'source')
+    .attr('x', width - margin / 2)
+    .attr('y', height + margin * 1.7)
+    .attr('text-anchor', 'start')
+    .text('Source: General Social Survey')
+
+svg.append('text')
+    .attr('class', 'source')
+    .attr('x', width - margin / 2)
+    .attr('y', height + margin * 1.9)
+    .attr('text-anchor', 'start')
+    .text('Statistics Canada, 2018')
+
+
+// second bars for donors
+const barGroups_2 = chart.selectAll()
+.data(donors)
+.enter()
+.append('g')
+
+
+barGroups_2
+    .append('rect')
+    .attr('id', 'bar_d')
+    .attr('x', (g) => xScale(g.age) + xScale.bandwidth()/2+10)
+    .attr('y', (g) => yScale(g.value))
+    .attr('height', (g) => height - yScale(g.value))
+    .attr('width', xScale.bandwidth()/2+10)
+    .on('mouseenter', function (actual,i) {
+        d3.selectAll('.value_d').attr('opacity', 0)
+  
+        chart.selectAll('#bar_v').attr('opacity', 0.2)
+  
+        chart.selectAll('.value_v').attr('opacity', 0)
+  
+        d3.select(this)
+          .transition()
+          .duration(300)
+          .attr('opacity', 0.7)
+          .attr('x', (a) => xScale(a.age)+xScale.bandwidth()/2+10)
+          .attr('width', xScale.bandwidth()/2+5)
+  
+        const y = yScale(actual.value);
+       
+        line_2 = chart.append('line') // yellow dotted line 
+          .attr('id', 'limit_2')
+          .attr('x1', 0)
+          .attr('y1', y)
+          .attr('x2', width)
+          .attr('y2', y)
+      
+          barGroups_2.append('text')
+          .attr('class', 'divergence_d')
+          .attr('x', (a) => xScale(a.age) + xScale.bandwidth() /2 + 15 + xScale.bandwidth()/4)
+          .attr('y', (a) => yScale(a.value) + 30)
+          .attr('text-anchor', 'middle')
+          .text((a) => `${a.avr} $`)
+    })
+          
+      .on('mouseleave', function () {
+        d3.selectAll('.value_d').attr('opacity', 1)
+        d3.selectAll('#bar_v').attr('opacity', 1)
+        d3.selectAll('.value_v').attr('opacity', 1)
+  
+        d3.select(this)
+          .transition()
+          .duration(300)
+          .attr('opacity', 1)
+          .attr('x', (a) => xScale(a.age) + xScale.bandwidth()/2+10)
+          .attr('width', xScale.bandwidth()/2+10)
+  
+        chart.selectAll('#limit_2').remove()
+        chart.selectAll('.divergence_d').remove()
+      })
+    
+
+barGroups_2 
+    .append('text')
+    .attr('class', 'value_d')
+    .attr('x', (a) => xScale(a.age) + xScale.bandwidth() / 2 + 15 + xScale.bandwidth()/4)
+    .attr('y', (a) => yScale(a.value) + 20)
+    .attr('text-anchor', 'middle')
+    .text((a) => `${a.value}`)
+  
+  
+
+    
