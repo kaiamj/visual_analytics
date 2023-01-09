@@ -6,14 +6,67 @@ body {
   div#layout {
     text-align: center;
   }
-  
-  div#main_stats {
-    width: 1000px;
-    height: 600px;
-    margin: auto;
-    background-color: #1b2758;
+
+  div.second_row, div#third_row
+  {
+    width: 100%;
+  }
+  div#first_row
+  {
+    width: 100%;
+    height: 250px;
+    background-color: #e9f0ee;
+  }
+  div#pie_text
+  {
+    float:left;
+    width: 60%;
+    height: 100%;
+    
+    background-color: #f5eff4;
+  }
+
+  div#pie_ps
+  {
+    float:right;
+    width: 40%;
+    height: 200px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    background-color: #f2f6f5;
   }
   
+  div.main_stats {
+    float:left;
+    width: 70%;
+    height: 600px;
+    margin: left;    
+    background-color: #faf4f4;
+  }
+
+  div.text_main_stats{
+    float:right;
+    width: 30%;
+    height: 600px;
+    background-color: #f5f4f1;
+  }
+
+  div.gender_stats 
+  {
+    float:left;
+    width: 70%;
+    height: 600px;
+    margin: left;   
+    background-color: #15d6a9;
+
+  }
+  div.text_gender_stats{
+    float:right;
+    width: 30%;
+    height: 600px;
+    background-color: #9de1e8;
+  }
+    
   svg {
     width: 100%;
     height: 100%;
@@ -29,13 +82,10 @@ body {
   
   text {
     font-size: 12px;
-    fill: #fff;
+    fill: rgb(14, 13, 13);
   }
   
-  path {
-    stroke: gray;
-  }
-  
+   
   line {
     stroke: gray;
   }
@@ -66,6 +116,11 @@ body {
     font-size: 12px;
     fill:#1b2758;
   }
+
+  text.value_d {    
+    font-size: 12px;
+    fill:#e7e8ed;
+  }
   
   text.title {
     font-size: 22px;
@@ -79,4 +134,8 @@ body {
   
   text.source {
     font-size: 10px;
+  }
+
+  #pers_pie{
+    border-color: #e0255d;
   }
