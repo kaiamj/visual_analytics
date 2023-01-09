@@ -74,7 +74,7 @@ const volunteers = [
     }
   ];
 
-  const svg = d3.select('svg');
+  const svg = d3.select('svg#main_st');
   const svgContainer = d3.select('#main_stats');
   
   const margin = 80; // margin of barchart
@@ -101,33 +101,24 @@ const volunteers = [
     .domain([0, max_val+100]);// maximum of values for y axis + 100 extra
    
 
-// horizontal grid lines 
+//horizontal grid lines 
 
   const makeYLines = () => d3.axisLeft() 
-    .scale(yScale)
+   .scale(yScale)
+
+ chart.append('g')
+   .attr('transform', `translate(0, ${height})`)
+   .call(d3.axisBottom(xScale));
 
   chart.append('g')
-    .attr('transform', `translate(0, ${height})`)
-    .call(d3.axisBottom(xScale));
+   .call(d3.axisLeft(yScale));
 
-  chart.append('g')
-    .call(d3.axisLeft(yScale));
-
-  // vertical grid lines
-  // chart.append('g')
-  //   .attr('class', 'grid')
-  //   .attr('transform', `translate(0, ${height})`)
-  //   .call(makeXLines()
-  //     .tickSize(-height, 0, 0)
-  //     .tickFormat('')
-  //   )
-
-  chart.append('g')
-    .attr('class', 'grid')
-    .call(makeYLines()
-      .tickSize(-width, 0, 0)
-      .tickFormat('')
-    )
+ chart.append('g')
+   .attr('class', 'grid')
+   .call(makeYLines()
+     .tickSize(-width, 0, 0)
+     .tickFormat('')
+   )
 
   const barGroups = chart.selectAll()
     .data(volunteers)
@@ -152,18 +143,18 @@ const volunteers = [
       d3.select(this)
         .transition()
         .duration(300)
-        .attr('opacity', 0.7)
+        .attr('opacity', 0.9)
         .attr('x', (a) => xScale(a.age))
         .attr('width', xScale.bandwidth()/2+5)
 
       const y = yScale(actual.value);
      
-      line = chart.append('line') // yellow dotted line 
-        .attr('id', 'limit')
-        .attr('x1', 0)
-        .attr('y1', y)
-        .attr('x2', width)
-        .attr('y2', y)
+     // line = chart.append('line') // yellow dotted line 
+     //   .attr('id', 'limit')
+     //   .attr('x1', 0)
+      //  .attr('y1', y)
+     //   .attr('x2', width)
+     //   .attr('y2', y)
     
         barGroups.append('text')
         .attr('class', 'divergence_v')
@@ -189,7 +180,7 @@ const volunteers = [
         .attr('x', (a) => xScale(a.age))
         .attr('width', xScale.bandwidth()/2+5)
 
-      chart.selectAll('#limit').remove()
+   //   chart.selectAll('#limit').remove()
       chart.selectAll('.divergence_v').remove()
     })
 
@@ -222,7 +213,7 @@ const volunteers = [
     .attr('x', width / 2 + margin)
     .attr('y', 40)
     .attr('text-anchor', 'middle')
-    .text('Volunteers in Canada accroding to Age groups')
+    .text('Charity in Canada accroding to Age groups')
 
   svg.append('text')
     .attr('class', 'source')
@@ -269,12 +260,12 @@ barGroups_2
   
         const y = yScale(actual.value);
        
-        line_2 = chart.append('line') // yellow dotted line 
-          .attr('id', 'limit_2')
-          .attr('x1', 0)
-          .attr('y1', y)
-          .attr('x2', width)
-          .attr('y2', y)
+        // line_2 = chart.append('line') // yellow dotted line 
+        //   .attr('id', 'limit_2')
+        //   .attr('x1', 0)
+        //   .attr('y1', y)
+        //   .attr('x2', width)
+        //   .attr('y2', y)
       
           barGroups_2.append('text')
           .attr('class', 'divergence_d')
@@ -309,6 +300,14 @@ barGroups_2
     .attr('text-anchor', 'middle')
     .text((a) => `${a.value}`)
   
-  
+// Tool tip
+
+var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([120, 150])
+    .html(function(d) {
+      return `<span class='tooltip'><i class='fab' style='color:#1DA1F2;'>\uf099</i>: </span><span>Text1<br></span><span class='tooltip'><i class='fa' style='color:#E0245E;'>\uf004</i>: Text2\t <i class='fa' style='color:#25C36B;'>\uf079</i>Text3</span>`;
+    })
+  svg.call(tip);
 
     
