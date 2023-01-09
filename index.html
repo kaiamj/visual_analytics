@@ -26,15 +26,23 @@
   <li>people with family income 125,000 and more have donated and volunteered more than others </li>
 </ul> </center></div>   
         
-        <div id = "pie_ps">
-          <button onclick="update(data1_gender)">Gender distribution</button>
-          <button onclick="update(data1_education)">Education distribution</button>
-          <button onclick="update(data3_income)">Family Income distribution</button>
-        </div>
+       <div class="pies_wrapper">
+          <div class="buttons">
+            <button class="button_1" onclick="update(1)">Donations</button>
+            <button class="button_1" onclick="update(2)">Volunteering</button>
+          </div>
+          
+          <div class = "pie1">          
+          </div>    
 
-        <!-- <svg id="personal_st" width="200" height="200" ></svg> -->
-     
-        <script src="js/personal.js" ></script>
+          <div class = "pie2">
+          </div>
+          
+          <div class = "pie3">            
+          </div>
+          <script src="js/gender.js" ></script>
+
+        </div>
 
         
   </div>
