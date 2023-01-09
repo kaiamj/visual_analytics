@@ -15,7 +15,7 @@ body {
   div.first_row
   {
     width: 100%;
-    height: 260px;
+    height: 250px;
     background-color: #020202;
   }
 
@@ -24,7 +24,7 @@ body {
   div.pie_text
   {
     float:left;
-    width: 55%;
+    width: 60%;
     height: 260px;    
     background-color: #ffffff;
   }
@@ -34,7 +34,7 @@ body {
               float: left;
               width: 40%;
               height: 260px;
-              background-color: #ffffff;
+              background-color: #31c6e8;
             }
 
                   div.buttons
@@ -138,11 +138,19 @@ body {
   div.categories_stats
   {
     float:left;
-    width: 70%;
+    width: 35%;
     height: 600px;
     margin: left;   
-    background-color: #15d6a9;
+    background-color: #ffffff;
+  }
 
+  div.categories_stats_2
+  {
+    float:left;
+    width: 35%;
+    height: 600px;
+    margin: left;   
+    background-color: #ffffff;
   }
   div.categories_text{
     float:right;
