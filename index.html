@@ -7,7 +7,11 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="css/css.css" rel="stylesheet">
+
   <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
 </head>
 
 <body>
@@ -19,19 +23,21 @@
 	
   </div>
     
-  <div id='first_row'>  
-	  <div id = "pie_text"> 
-		  <p>
+  <div class='first_row'>  
+
+        <div class = "pie_text">
+          <p>
 			
-		  <ul>
-  			<li>Females have volunteered and donated more than males </li>
-  			<li>people with University Diploma volunteered more and people with Post-secondary diploma have donated more </li>
-  			<li>people with family income 125,000 and more have donated and volunteered more than others </li>
-		</ul> 
-		  </p>	  
-	  </div>   
+            <ul>
+              <li>Females have volunteered and donated more than males </li>
+              <li>people with University Diploma volunteered more and people with Post-secondary diploma have donated more </li>
+              <li>people with family income 125,000 and more have donated and volunteered more than others </li>
+          </ul> 
+            </p>	  
+        </div>   
         
-       <div class="pies_wrapper">
+        
+        <div class="pies_wrapper">
           <div class="buttons">
             <button class="button_1" onclick="update(1)">Donations</button>
             <button class="button_1" onclick="update(2)">Volunteering</button>
@@ -48,7 +54,6 @@
           <script src="js/gender.js" ></script>
 
         </div>
-
         
   </div>
 
@@ -57,21 +62,36 @@
   <div class="second_row">
     
     <div class='main_stats'>
-      <svg id="main_st"></svg>
-          <script src="js/main.js">
-          </script>
+      <svg id="main_st">
+
+      </svg>
+          
+        <script src="js/main.js">
+        </script>
     </div>
 
     <div class="text_main_stats">
-      <p> This chart shows the statistics of people of different age groups volunteering and donating. </p>
+      <p> Here goes some text</p>
 
     </div>
   </div>
   
   <div class="third_row">
+
     <div class="categories_stats">      
-      <script src="js/categories_stats.js"></script>
+              
     </div>
+
+        <script src="js/categories_stats.js">
+
+        </script>
+    <div class="categories_stats_2">      
+              
+    </div>
+
+        <script src="js/cat_stat_2.js">
+
+        </script>
 
     <div class="categories_text">
 
