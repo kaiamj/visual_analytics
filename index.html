@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>Bar chart with D3.js</title>
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="css/css.css" rel="stylesheet">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+  <div id='layout'>
+    <br/>
+    <h2>Here we put title</h2> 
+
+  </div>
+    
+  <div id='first_row'>  
+        <div id = "pie_text"></div>   
+        
+        <div id = "pie_ps">
+          <button onclick="update(data1_gender)">Gender distribution</button>
+          <button onclick="update(data1_education)">Education distribution</button>
+          <button onclick="update(data3_income)">Family Income distribution</button>
+        </div>
+
+        <!-- <svg id="personal_st" width="200" height="200" ></svg> -->
+     
+        <script src="js/personal.js" ></script>
+
+        
+  </div>
+
+ 
+
+  <div class="second_row">
+    
+    <div class='main_stats'>
+      <svg id="main_st"></svg>
+          <script src="js/main.js">
+          </script>
+    </div>
+
+    <div class="text_main_stats">
+      <p> Here goes some text</p>
+
+    </div>
+  </div>
+  
+  <div class="third_row">
+    <div class="gender_stats">
+      <svg id="gender_st"></svg>
+      <script src="js/gender_stats.js"></script>
+    </div>
+    <div class="text_gender_stats">
+
+    </div>
+  </div>
+ 
+
+</body>
+</html>
