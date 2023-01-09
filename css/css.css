@@ -7,34 +7,118 @@ body {
     text-align: center;
   }
 
-  div.second_row, div#third_row
+  div.second_row, div.third_row
   {
     width: 100%;
   }
-  div#first_row
+  
+  div.first_row
   {
     width: 100%;
     height: 250px;
-    background-color: #e9f0ee;
+    background-color: #020202;
   }
-  div#pie_text
+
+ 
+
+  div.pie_text
   {
     float:left;
     width: 60%;
-    height: 100%;
-    
-    background-color: #f5eff4;
+    height: 260px;    
+    background-color: #ffffff;
   }
 
-  div#pie_ps
-  {
-    float:right;
-    width: 40%;
-    height: 200px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: #f2f6f5;
-  }
+            div.pies_wrapper
+            {
+              float: left;
+              width: 40%;
+              height: 260px;
+              background-color: #31c6e8;
+            }
+
+                  div.buttons
+                  {
+                    float:top;
+                    width: 100%;
+                    height: 60px;
+                    background-color: #ffffff;
+                    padding: 0 0 0 0;
+                    text-align: center;
+                  }
+
+                  .button_1 
+                  {
+                    /* Green */                   
+                    padding: 16px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 2px 2px;
+                    transition-duration: 0.4s;
+                    cursor: pointer;
+                    background-color: #366661; 
+                    color: #ffffff; 
+                    border: 2px solid #ffffff;
+                    border-radius: 8px;
+                    width: 150px;
+                  }
+                  .button_1:hover {
+                    background-color: #ffffff;
+                    color: #000000;
+                    border: 2px solid #366661;
+                    border-radius: 8px;
+                  }
+                  div.pie1
+                  {
+                    float:left;
+                    width: 33.3%;
+                    height: 200px;
+                    background-color: #ffffff;
+                    text-align: center;
+                    padding: 0 0 0 0;
+                  }
+
+                  div.pie2
+                  {
+                    float:left;
+                    width: 33.3%;
+                    height: 200px;
+                    background-color:#ffffff;
+                    padding: 0 0 0 0;
+                    
+                  }
+                    svg#gender_pie
+                    {
+                      background-color:#ffffff;
+                      display: block;
+                      margin: auto;
+                    }
+                    svg#education_pie
+                    {
+                      background-color:#ffffff;
+                      display: block;
+                      margin: auto;
+                    }
+                    svg#income_pie
+                    {
+                      background-color:#ffffff;
+                      display: block;
+                      margin: auto;
+                    }
+
+                  div.pie3
+                  {
+                    float:left;
+                    top: 10%;
+                    width: 33.3%;
+                    height: 200px;
+                    background-color: #ffffff;
+                    padding: 0 0 0 0;
+                  }
+
+  
   
   div.main_stats {
     float:left;
@@ -51,7 +135,7 @@ body {
     background-color: #f5f4f1;
   }
 
-  div.gender_stats 
+  div.categories_stats
   {
     float:left;
     width: 70%;
@@ -60,7 +144,7 @@ body {
     background-color: #15d6a9;
 
   }
-  div.text_gender_stats{
+  div.categories_text{
     float:right;
     width: 30%;
     height: 600px;
