@@ -302,12 +302,6 @@ barGroups_2
   
 // Tool tip
 
-var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([120, 150])
-    .html(function(d) {
-      return `<span class='tooltip'><i class='fab' style='color:#1DA1F2;'>\uf099</i>: </span><span>Text1<br></span><span class='tooltip'><i class='fa' style='color:#E0245E;'>\uf004</i>: Text2\t <i class='fa' style='color:#25C36B;'>\uf079</i>Text3</span>`;
-    })
-  svg.call(tip);
+
 
     
