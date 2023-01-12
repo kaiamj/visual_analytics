@@ -52,4 +52,11 @@ d3.csv("data/Vol_cat.csv", function(data_cr2) {
         .style("font-size", "11px")
         .attr("alignment-baseline", "middle")
 
+
+    svg_cr2.append('text')
+    .attr('class', 'text_circular_bars')
+    .attr('x', width_cr2 / 2 + margin_cr2)
+    .attr('y', -outerRadius2 )
+    .attr('text-anchor', 'middle')
+    .text('Volunteering for different organizations, average hours')
 });
