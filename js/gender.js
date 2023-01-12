@@ -42,29 +42,27 @@ var svg_pie_i = d3.select(".pie3")
 // create  data_sets
 
 var data_gender_donation = {'female':58, 'male':42};
-var data_education_donation = { 'University Diploma':35.5, 
-                                  'Post-secondary diploma':31.3,
-                                  'Graduated from High school':17.4,
-                                  'Less than High School':6.6,
-                                  'Skip':9.2};
-var data_income_donation = {'125,000+':27.7,
-                                '75,000-99,999':17.5,
-                                '50,000-74,999':17.11,
-                                '25,000-49,999':17.99,
-                                '100,000-124,999':10.5,
-                                '>25,000':9.07};
+var data_education_donation = { 'University':35.5, 
+                                  'Post-secondary':31.3,
+                                  'Highschool':17.4,
+                                  '>HighSchool':15.8}
+var data_income_donation = {'125k+':27.7,
+                                '75k-99k':17.5,
+                                '50,000-74k':17.11,
+                                '25k-49,999':17.99,
+                                '100k-124k':10.5,
+                                '>25k':9.07};
 var data_gender_vol = {'female':50, 'male':50};
-var data_education_vol = { 'University Diploma':31, 
-                            'Post-secondary diploma':25,
-                            'Graduated from High school':20,
-                            'Less than High School':15,
-                            'Skip':9};
-var data_income_vol = {'125,000+':30.85,
-                          '75,000-99,999':17.39,
-                          '50,000-74,999':16.48,
-                          '25,000-49,999':15.2,
-                          '100,000-124,999':11.18,
-                          '>25,000':8.88};
+var data_education_vol = { 'University':31, 
+                            'Post-secondary':25,
+                            'Highschool':20,
+                            '>HighSchool':21};
+var data_income_vol = {'125k+':30.85,
+                          '75k-99k':17.39,
+                          '50k-74k':16.48,
+                          '25k-49k':15.2,
+                          '100k-124k':11.18,
+                          '>25k':8.88};
 
 
 // set the color scale
@@ -73,11 +71,11 @@ var color_pie_g = d3.scaleOrdinal()
   .range(d3.schemeDark2);
 
 var color_pie_e = d3.scaleOrdinal()
-.domain(['University Diploma', 'Post-secondary diploma','Graduated from High school','Less than High School','Skip'])
+.domain(['University', 'Post-secondary','Highschool','>HighSchool'])
 .range(d3.schemeDark2);
 
 var color_pie_i = d3.scaleOrdinal()
-.domain(['125,000+','100,000-124,999','75,000-99,999','50,000-74,999','25,000-49,999','>25,000'])
+.domain(['125k+','100k-124k','75k-99k','50k-74k','25k-49k','>25k'])
 .range(d3.schemeDark2);
 
 //['#E6F69D', '#AADEA7', '#64C2A6', '#2D87BB', '#007CC3', '#FDBB2F']
@@ -130,7 +128,7 @@ pie1
 pie1
 .enter()
 .append('text')
-.text(function(d){ return d.data.value})
+.text(function(d){ return d.data.key})
 .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
 .style("text-anchor", "middle")
 .style("font-size", 12)
@@ -155,7 +153,7 @@ pie2
 pie2
 .enter()
 .append('text')
-.text(function(d){ return d.data.value})
+.text(function(d){ return d.data.key})
 .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
 .style("text-anchor", "middle")
 .style("font-size", 12)
@@ -179,7 +177,7 @@ pie3
 pie3
 .enter()
 .append('text')
-  .text(function(d){ return d.data.value})
+  .text(function(d){ return d.data.key})
   .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
   .style("text-anchor", "middle")
   .style("font-size", 12)
