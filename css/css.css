@@ -12,29 +12,45 @@ body {
     width: 100%;
   }
   
+  div.description_text_bar, div.description_text_circleb, div.description_text_pie
+  {
+    background-color: #FFFBAC;
+    font-size: 13px;
+    padding: 10;
+    text-align: justify;
+    text-justify: auto;
+    padding:10;
+  }
   div.first_row
   {
     width: 100%;
-    height: 250px;
-    background-color: #020202;
-  }
-
- 
-
-  div.pie_text
-  {
-    float:left;
-    width: 60%;
-    height: 260px;    
+    height: 260px;
     background-color: #ffffff;
   }
+  
+      div.description_text_pie
+      {
+        float:left;
+        width: 20%;
+        height: 240px;
+        
+      }
+    
+
+      div.pie_text
+      {
+        float:left;
+        width: 35%;
+        height: 260px;    
+        background-color: #ffffff;
+      }
 
             div.pies_wrapper
             {
               float: left;
               width: 40%;
               height: 260px;
-              background-color: #31c6e8;
+              background-color: #ffffff;
             }
 
                   div.buttons
@@ -125,15 +141,23 @@ body {
     width: 70%;
     height: 600px;
     margin: left;    
-    background-color: #faf4f4;
+    background-color: #ffffff;
   }
 
-  div.text_main_stats{
-    float:right;
-    width: 30%;
-    height: 600px;
-    background-color: #f5f4f1;
-  }
+      div.text_main_stats{
+        float:right;
+        width: 30%;
+        height: 330px;
+        background-color: #ffffff;
+      }
+                div.description_text_bar
+                {
+                  float:left;
+                  width: 25%;
+                  height: 240px;    
+                }
+
+
 
   div.categories_stats
   {
@@ -155,9 +179,16 @@ body {
   div.categories_text{
     float:right;
     width: 30%;
-    height: 600px;
-    background-color: #9de1e8;
+    height: 340px;
+    background-color: #ffffff;
   }
+
+                div.description_text_circleb
+                {
+                  float:left;
+                  width: 25%;
+                  height: 240px;    
+                }
     
   svg {
     width: 100%;
@@ -165,7 +196,7 @@ body {
   }
   
   rect#bar_v {
-    fill: #80cbc4;
+    fill: #00dfc8;
   }
 
   rect#bar_d {
@@ -179,7 +210,7 @@ body {
   
    
   line {
-    stroke: gray;
+    stroke: rgb(0, 0, 0);
   }
   
   line#limit, line#limit_2{
@@ -198,8 +229,8 @@ body {
   }
   
   text.divergence_v, text.divergence_d {
-    font-size: 12px;
-    fill: #e0255d;
+    font-size: 14px;
+    fill: #ff9d00;
     font-weight: bold;
   }
 
@@ -211,7 +242,7 @@ body {
 
   text.value_d {    
     font-size: 12px;
-    fill:#e7e8ed;
+    fill:#ffffff;
   }
   
   text.title {
@@ -231,3 +262,12 @@ body {
   #pers_pie{
     border-color: #e0255d;
   }
+
+ 
+
+ div.bottom_text
+ {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(245, 187, 13);
+ }
