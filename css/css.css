@@ -271,3 +271,11 @@ body {
   height: 50px;
   background-color: rgb(245, 187, 13);
  }
+
+ .text_circular_bars
+ {
+  text-align: middle;
+  font-size: 15px;
+  font-weight: bold;
+  fill: #366661;
+ }
