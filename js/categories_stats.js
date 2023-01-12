@@ -52,4 +52,11 @@ d3.csv("data/OneCatOneNum.csv", function(data_cr) {
         .style("font-size", "11px")
         .attr("alignment-baseline", "middle")
 
+
+    svg_cr.append('text')
+    .attr('class', 'text_circular_bars')
+    .attr('x', width_cr / 2 + margin_cr)
+    .attr('y', -outerRadius )
+    .attr('text-anchor', 'middle')
+    .text('Donation for different organizations, average $ (normilized chart)')
 });
