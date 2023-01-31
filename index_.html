@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+
+<!-- Load d3.js and plugin for color scale -->
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>Bar chart with D3.js</title>
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="css/css.css" rel="stylesheet">
+  <link href="css/css_2.css" rel="stylesheet">
+  <link href="css/css_clean.css" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h1>STATISTICS OF CHARITY </h1>
+        <p></p>
+      </div>
+      
+      
+      
+      <div class="row"></div>
+        <div class="main"></div>
+          <h2><center>Everything you need to know for your next charity campaign in Canada</center> </h2>
+          <p>Your charity organization will be more effective if you will know 
+              <li>Who are you targeting </li>
+              <li>Why will they join you</li>
+              <li>How will they participate</li>
+          </p>
+          <div class="row">
+            <div class="column"> <p>WHO?</p></div>
+            <div class="column"> <p> WHY?</p></div>
+            <div class="column"> <p> HOW?</p></div>
+          </div>
+      
+  <div class="row">
+<div id="chart_1" class="chart_1"></div>
+
+<script>
+
+  const donors = [
+    {
+      category: 'Health', 
+      age: [11, 14.76, 16.01, 23.62, 21.48, 12.72],
+      value: 7988,
+      avr: 15,
+      gender: [60.37, 39.63],
+      income: []
+    },
+    {
+      category: 'Social services',
+      age: [12, 14.37, 15.66, 23.28, 22.0, 12.9],
+      value: 6410,
+      avr: 15,
+      gender: [59.52, 40.48],
+      income: []
+    },
+    {
+        category: 'Religion',
+      age: [10, 13.12, 13.82, 21.97, 23.14, 17.83],
+      value: 4710,
+      avr: 15,
+      gender: [59,41],
+      income: []
+    },
+    {
+        category: 'Culture',
+      age: [11.72, 15.58, 17.25, 24.32, 20.65, 10.47],
+      value: 3055,
+      avr: 15,
+      gender: [55,45],
+      income: []
+    },
+    {
+        category: 'Education',
+      age: [11, 19.68, 17.79, 23.01, 19.57, 8.7],
+      value: 2586,
+      avr: 15,
+      gender: [61,39],
+      income: []
+    },
+    {
+        category: 'Philanth.',
+      age: [14, 18.49, 20.17, 22.82, 16.51, 8.28],
+      value: 2077,
+      avr: 15,
+      gender: [57,43],
+      income: []
+    },
+    {
+        category: 'Environment',
+      age: [12, 14.84, 15.27, 22.94, 22.13, 11.22],
+      value: 1604,
+      avr: 15,
+      gender: [70,30],
+      income: []
+    },
+    {
+        category: 'Internat.',
+      age: [12, 14.89, 14.57, 20.86, 23.62, 13.22],
+      value: 1558,
+      avr: 15,
+      gender: [62,38],
+      income: []
+    },
+    {
+        category: 'Advocacy',
+        age: [7, 10.64, 13.08, 23.46, 28.59, 16.41],
+        value: 780,
+        avr: 15,
+        gender: [53,47],
+        income: []
+    }
+    ,
+    {
+        category: 'Housing',
+        age: [10, 18.75, 14.92, 22.38, 23.59, 9.68],
+        value: 500,
+        avr: 15,
+        gender: [59,41],
+        income: []
+    },
+    {
+        category: 'Others',
+        age: [14, 17.88, 16.11, 20.75, 18.54, 11.7],
+        value: 453,
+        avr: 15,
+        gender: [60,40],
+        income: []
+    }
+  ];
+
+
+const vols =  [
+    {
+      category: 'Health', 
+      age: [16, 15.53, 16.61, 24.49, 18.4, 8.84],
+      value: 837,
+      avr: 15,
+      gender: [60.37, 39.63],
+      income: []
+    },
+    {
+      category: 'Social services',
+      age: [16, 19.36, 16.43, 20.56, 17.48, 8.94],
+      value: 2014,
+      avr: 15,
+      gender: [59.52, 40.48],
+      income: []
+    },
+    {
+        category: 'Religion',
+      age: [11, 12.74, 13.64, 20.59, 24.26, 17.5],
+      value: 1554,
+      avr: 15,
+      gender: [59,41],
+      income: []
+    },
+    {
+        category: 'Sports',
+      age: [15, 20.51, 18.01, 18.39, 18.14, 9.94],
+      value: 1600,
+      avr: 15,
+      gender: [55,45],
+      income: []
+    },
+    {
+      category: 'Education',
+      age: [33, 35.58, 19.76, 10.21, 8.61, 2.06],
+      value: 1060,
+      avr: 15,
+      gender: [61,39],
+      income: []
+    },
+    {
+        category: 'Environment',
+      age: [22, 13.49, 14.97, 22.92, 21.63, 4.81],
+      value: 541,
+      avr: 15,
+      gender: [70,30],
+      income: []
+    },
+    {
+        category: 'Internat.',
+      age: [23, 13.82, 11.38, 19.51, 22.76, 8.94],
+      value: 125,
+      avr: 15,
+      gender: [62,38],
+      income: []
+    },
+    {
+        category: 'Advocacy',
+        age: [15, 11.97, 17.8, 22.01, 23.95, 8.74],
+        value: 310,
+        avr: 15,
+        gender: [53,47],
+        income: []
+    }
+    ,
+    {
+        category: 'Housing',
+        age: [15, 15.51, 16.1, 24.68, 20.45, 8.34],
+        value: 851,
+        avr: 15,
+        gender: [59,41],
+        income: []
+    },
+    {
+        category: 'Others',
+        age: [25, 17.39, 15.94, 17.39, 15.94, 8.7],
+        value: 69,
+        avr: 15,
+        gender: [60,40],
+        income: []
+    }
+  ];
+
+
+  const gScale = ['#ff6f69','#96ceb4'];
+
+
+
+
+
+
+
+  const categories_full = ['Health','Social services','Religion','Culture','Sports','Education',
+            'Philanth.','Environment','Internat.','Advocacy','Housing','Others']
+
+  const margin = 80; // margin of barchart
+  const width = 1000 - 2 * margin;
+  const height = 700 - 2 * margin; 
+
+  const c_Scale = ['#96ceb4', '#ffeead', '#ff6f69', '#ffcc5c', '#88d8b0', '#666547'];
+
+  var svg_1 = d3.select("#chart_1").append("svg").attr("width", width).attr("height", height);
+
+  const chart1 = svg_1.append('g')
+    .attr('transform', `translate(${margin}, ${margin})`);
+   // .attr("viewBox", [margin, margin, width, height]);
+
+  const xScale = d3.scaleBand()
+    .range([0, width])
+    .domain(categories_full) // categories for x axis
+    .padding(0.5);
+  
+  const max_val =  8200;
+  //d3.max([d3.max(donors, s=>s.value), d3.max(donors, s=>s.value)]);
+  const yScale_v = d3.scaleLinear() 
+                    .range([height, 0])
+                    .domain([0, max_val]);
+
+
+  const yScale = d3.scaleLinear() 
+    .range([height, 0])
+    .domain([0, max_val+200]);// maximum of values for y axis + 100 extra
+   
+
+//horizontal grid lines 
+
+const makeYLines = () => d3.axisLeft() 
+   .scale(yScale);
+
+chart1.append('g')
+   .attr('transform', `translate(0, ${height})`)
+   .call(d3.axisBottom(xScale));
+
+chart1.append('g')
+    .attr('transform', `translate(0, 0)`)
+    .call(d3.axisLeft(yScale));
+
+chart1.append('g')
+   .attr('class', 'grid')
+   .call(makeYLines()
+     .tickSize(-width, 0, 0)
+     .tickFormat(''));
+    // .tickFormat('')
+
+
+
+    update(0,0);
+
+
+
+
+
+  
+function update(flag1, flag2)
+{
+
+
+
+if((flag1==0)&(flag2==0))
+{
+  legend1();
+  const barGroups = chart1.selectAll()
+    .data(donors)
+    .enter()
+    .append('g');
+
+  barGroups
+    .append('rect')
+    .attr('id', 'bar_d')
+    .attr('x', function(d,i){return (xScale(d.category));})
+    .attr('y', function(d,i){return yScale(d.value);})
+    .attr('height', (d) => height - yScale(d.value))
+    .attr('fill', 'yellow')
+    .attr('width', (xScale.bandwidth()/2-3));
+
+chart1.append('text')
+.attr('class', 'label')
+.attr('x', -(height - margin)/2)
+.attr('y', -margin/1.5)
+.attr('transform', 'rotate(-90)')
+.attr('text-anchor', 'middle')
+.text('Respondednts');
+
+chart1.append('text')
+.attr('class', 'label')
+.attr('x', width / 2 )
+.attr('y', height + margin)
+.attr('text-anchor', 'middle')
+.text('Categories');
+
+chart1.append('text')
+.attr('class', 'title')
+.attr('x', width / 2 )
+.attr('y', 0)
+.attr('text-anchor', 'middle')
+.text('Charity in Canada by Categories');
+
+// Volunteerings
+
+const barGroupsV = chart1.selectAll()
+    .data(vols)
+    .enter()
+    .append('g');
+
+barGroupsV.append('rect')
+    .attr('id', 'barv')
+    .attr('x', (d) => (xScale(d.category) + xScale.bandwidth()/2))
+    .attr('y', (d) => yScale(d.value))
+    .attr('height', (d) => height - yScale(d.value))
+    .attr('fill', 'yellow')
+    .attr('width', (xScale.bandwidth()/2-3));
+
+}
+
+ if ((flag1 == 1 )&(flag2 ==2))
+{ legend_2();
+              for (ind=0;ind<11;ind++)
+              {
+                  
+                  h_ = (height-yScale(donors[ind].value)) / d3.sum(donors[ind].age) ;
+                  
+                  x_ = xScale(donors[ind].category);
+                  y_ = height; 
+
+                  for (jj=0; jj<6; jj++)
+                  {
+                    // console.log(donors[ind].age[jj]);
+                      console.log(y_);
+                      chart1.selectAll()
+                      .data([donors[ind].age[jj]])
+                      .enter()
+                      .append('g')
+                      .append('rect')
+                      .attr('x', x_)
+                      .attr('y', function(d, i){  return (y_ - (h_*d));})
+                      .attr('height', function(d,i){ return (h_*d);})
+                      .attr('stroke', 'white')
+                      .attr('fill', function(d,i){ return c_Scale[jj]; })
+                      .attr('width', xScale.bandwidth()/2-3);
+                      y_ = y_ - (donors[ind].age[jj]*h_ );
+                  }
+                }
+
+for (ind=0;ind<11;ind++)
+{
+    
+    h_ = (height-yScale(vols[ind].value)) / d3.sum(vols[ind].age) ;
+    
+    x_ = xScale(vols[ind].category) + xScale.bandwidth()/2;
+    y_ = height; 
+
+    for (jj=0; jj<6; jj++)
+    {
+       // console.log(donors[ind].age[jj]);
+        console.log(y_);
+        chart1.selectAll()
+        .data([vols[ind].age[jj]])
+        .enter()
+        .append('g')
+        .append('rect')
+        .attr('x', x_)
+        .attr('y', function(d, i){  return (y_ - (h_*d));})
+        .attr('height', function(d,i){ return (h_*d);})
+        .attr('stroke', 'white')
+        .attr('fill', function(d,i){ return c_Scale[jj]; })
+        .attr('width', xScale.bandwidth()/2-3);
+        y_ = y_ - (vols[ind].age[jj]*h_ );
+    }
+    }
+}
+
+if ((flag1==3)&(flag2==4))
+{ legend3();
+              for (ind=0;ind<11;ind++)
+              {
+                  
+                  h_ = (height-yScale(donors[ind].value)) / d3.sum(donors[ind].gender) ;
+                  
+                  x_ = xScale(donors[ind].category);
+                  y_ = height; 
+
+                  for (jj=0; jj<6; jj++)
+                  {
+                    // console.log(donors[ind].age[jj]);
+                      console.log(y_);
+                      chart1.selectAll()
+                      .data([donors[ind].gender[jj]])
+                      .enter()
+                      .append('g')
+                      .append('rect')
+                      .attr('x', x_)
+                      .attr('y', function(d, i){  return (y_ - (h_*d));})
+                      .attr('height', function(d,i){ return (h_*d);})
+                      .attr('stroke', 'white')
+                      .attr('fill', function(d,i){ return gScale[jj]; })
+                      .attr('width', xScale.bandwidth()/2-3);
+                      y_ = y_ - (donors[ind].gender[jj]*h_ );
+                  }
+                }
+
+              for (ind=0;ind<11;ind++)
+              {
+                  
+                  h_ = (height-yScale(vols[ind].value)) / d3.sum(vols[ind].gender) ;                  
+                  x_ = xScale(vols[ind].category) + xScale.bandwidth()/2 ;
+                  y_ = height; 
+                  for (jj=0; jj<6; jj++)
+                  {
+                      console.log(y_);
+                      chart1.selectAll()
+                      .data([vols[ind].gender[jj]])
+                      .enter()
+                      .append('g')
+                      .append('rect')
+                      .attr('x', x_)
+                      .attr('y', function(d, i){  return (y_ - (h_*d));})
+                      .attr('height', function(d,i){ return (h_*d);})
+                      .attr('stroke', 'white')
+                      .attr('fill', function(d,i){ return gScale[jj]; })
+                      .attr('width', xScale.bandwidth()/2-3);
+                      y_ = y_ - (vols[ind].gender[jj]*h_ );
+                  }
+                }
+}
+}
+   
+
+</script>
+
+<div id="buttons" class="buttons">
+  
+  <button class="button_1" onclick="update(0,0)">General</button>
+  <br/>
+  <button class="button_1" onclick="update(1,2)">Age groups</button>
+  <br/>
+  <button class="button_1" onclick="update(3,4)">Gender</button>
+<div id="tmp"></div>
+  <script>
+    function legend_2(){ ch.attr("opacity", 1);} 
+    function legend1(){ ch.attr("opacity", 0);} 
+    function legend3(){ ch.attr("opacity", 0);} 
+
+    const cScale_ = ['#96ceb4', '#ffeead', '#ff6f69', '#ffcc5c', '#88d8b0', '#666547'];
+    const sc1 = ['#366661', 'yellow'];
+    const s2 = ['#ff6f69','#96ceb4'];
+
+    const ag = ['15-34 y', '35-44 y', '45-54 y', '54-64 y', '65-74 y', '75+ y'];
+    const ge = ['Donation', 'Volunteering'];
+    const gd = ['Female', 'Male'];
+
+
+    ch = d3.select('#tmp').append("svg").attr("width", 100).attr("height", 20);
+
+  cx = 25;
+
+  for(i=0;i<6;i++){
+    ch.append('circle')
+  .attr('cx', cx)
+  .attr('cy', 25)
+  .attr('r', 20)
+  .attr('stroke', 'black')
+  .attr('fill', cScale_[i]); 
+  
+  ch.append('g')
+  .append('text')
+  .attr('x', cx-15)
+  .attr('y', 60)
+  .text(ag[i])
+  cx = cx + 50;
+  ch.attr("opacity", 0);
+  }
+ 
+  cx = 25;
+  for(i=0;i<2;i++){
+  ch0.append('circle')
+  .attr('cx', cx)
+  .attr('cy', 25)
+  .attr('r', 25)
+  .attr('stroke', 'black')
+  .attr('fill', sc1[i]); 
+
+  ch0.append('g')
+  .append('text')
+  .attr('x', cx-15)
+  .attr('y', 60)
+  .text(ge[i])
+  cx = cx + 60;
+  ch0.attr("opacity", 0);
+
+  }
+
+  for(i=0;i<2;i++){
+  ch1.append('circle')
+  .attr('cx', cx)
+  .attr('cy', 30)
+  .attr('r', 25)
+  .attr('stroke', 'black')
+  .attr('fill', s2[i]); 
+  
+  ch1.append('g')
+  .append('text')
+  .attr('x', cx-15)
+  .attr('y', 25)
+  .text(gr[i])
+  cx = cx + 25;
+  ch1.attr("opacity", 0);
+
+  }
+
+    </script>
+  <h4> </h4> 
+      <br/>
+      <br/>
+      <h3>Align with you participants by knowing their reasons to participate</h3>
+
+      <h2> </h2>
+
+      <h3> </h3>
+    </p>
+</div>
+</div>  
+<div class="row2">
+    <div id="chart_2" class="chart_2"></div>
+    
+    <script> 
+    
+    
+        var tooltip_ = d3.select("#chart_2")
+                    .append("div")
+                    .attr("class", "tooltip")
+                    .style("background-color", "#f7bfbe")
+                    .style("border", "solid")
+                    .style("border-width", "1px")
+                    .style("border-radius", "7px")
+                    .style("color", "white")
+                    .style("padding", "3px")
+                    .style("position", "absolute")
+                    .style("visibility", "hidden");     
+        
+        const margin_2 = 50; // margin of barchart
+        const width_2 = 1000 - 2 * margin_2;
+        const height_2 = 800 - 2 * margin_2; 
+      
+    
+        var svg = d3.select("#chart_2").append("svg").attr("width", width_2).attr("height", height_2);
+    
+        const chart = svg.append('g')
+            .attr('transform', `translate(${margin_2}, ${margin_2})`);
+    
+        // Global variables
+    
+        const bar_height = 17; // bar height with padding between
+        const bar_height_0 = 15; // pure bar height
+        const age_num = 6;
+        const res_num = 4;
+        const padding_res = 25;
+    
+        const x_anchor = {'c1':300, 'c2':550, 'c3':800, 'x_left':100, 'x_right':900,
+                            'x_text': 100}; // x coordinates for category lines
+    
+        const y_anchor = {  'r1':50, 'r2':205, 'r3':360, 'r4':515, 'y_top':20, 'y_bot':520, 
+                            'r1y':37.5, 'r2y':192.5, 'r3y':347.5, 'r4y':502.5,
+                            't1y':102.5, 't2y':295, 't3y':450, 't4y':560};
+    
+        const age_groups = ['15-34', '35-44', '45-54', '55-64', '65-74', '75+'];
+        const data_donation = [     [
+                                    [ {r:20, p:22, rt:0.15}, {r:21, p:14, rt:0.15}, {r:20, p:14, rt:0.15}, 
+                                        {r:23, p:20, rt:0.15}, {r:26, p:20, rt:0.15}, {r:25, p:10, rt:0.15}],
+                                    [   {r:22, p:14, rt:0.2}, {r:15, p:28, rt:0.2}, {r:17, p:20, rt:0.2}, 
+                                        {r:22, p:20, rt:0.2}, {r:24, p:10, rt:0.2}, {r:25, p:8, rt:0.2}],
+                                    [   {r:21, p:25, rt:0.35},  {r:21, p:12, rt:0.35}, {r:23, p:20, rt:0.35}, 
+                                        {r:28, p:11, rt:0.35}, {r:33, p:20, rt:0.35}, {r:30, p:12, rt:0.35}],
+                                    [   {r:23, p:30, rt:0.30},  {r:14, p:14, rt:0.30}, {r:20, p:20, rt:0.30}, 
+                                        {r:20, p:18, rt:0.30}, {r:24, p:11, rt:0.30}, {r:26, p:7, rt:0.30}]
+                                    ],
+                                    [
+                                    [ {r:20, p:15, rt:0.23}, {r:20, p:14, rt:0.23}, {r:21, p:14, rt:0.23}, 
+                                        {r:25, p:20, rt:0.23}, {r:24, p:20, rt:0.23}, {r:26, p:10, rt:0.23}],
+                                    [ {r:28, p:14, rt:0.28}, {r:21, p:22, rt:0.28}, {r:23, p:20, rt:0.28}, 
+                                        {r:26, p:15, rt:0.28}, {r:26, p:18, rt:0.28}, {r:29, p:14, rt:0.28}],
+                                    [ {r:50, p:25, rt:0.29},  {r:27, p:12, rt:0.29}, {r:29, p:20, rt:0.29}, 
+                                    {r:31, p:11, rt:0.29}, {r:29, p:20, rt:0.29}, {r:31, p:12, rt:0.29}],
+                                    [ {r:28, p:12, rt:0.20},  {r:20, p:18, rt:0.20}, {r:22, p:20, rt:0.20}, 
+                                    {r:25, p:25, rt:0.20}, {r:24, p:14, rt:0.20}, {r:26, p:11, rt:0.20}]
+                                    ],                         
+                                    [
+                                    [ {r:29, p:15, rt:0.38}, {r:20, p:14, rt:0.38}, {r:21, p:14, rt:0.38}, 
+                                    {r:25, p:20, rt:0.38}, {r:27, p:20, rt:0.38}, {r:32, p:10, rt:0.38}],
+                                    [ {r:23, p:14, rt:0.14}, {r:18, p:18, rt:0.14}, {r:15, p:25, rt:0.14}, 
+                                    {r:23, p:20, rt:0.14}, {r:28, p:10, rt:0.14}, {r:25, p:10, rt:0.14}],
+                                    [ {r:56, p:21, rt:0.33},  {r:31, p:28, rt:0.33}, {r:29, p:14, rt:0.33}, 
+                                    {r:40, p:12, rt:0.33}, {r:33, p:16, rt:0.33}, {r:45, p:12, rt:0.33}],
+                                    [ {r:31, p:16, rt:0.15},  {r:21, p:20, rt:0.15}, {r:20, p:16, rt:0.15}, 
+                                    {r:25, p:18, rt:0.15}, {r:26, p:15, rt:0.15}, {r:33, p:18, rt:0.15}]
+                                    ]  
+                                ]
+    
+        y_anchor.r1 = 50;
+        y_anchor.r2 = y_anchor.r1 + age_num*bar_height+padding_res;
+        y_anchor.r1y = y_anchor.r2 - padding_res/2;
+        y_anchor.r3 = y_anchor.r2 + age_num*bar_height+padding_res;
+        y_anchor.r2y = y_anchor.r3 - padding_res/2;
+        y_anchor.r4 = y_anchor.r3 + age_num*bar_height+padding_res;
+        y_anchor.r3y = y_anchor.r4 - padding_res/2;
+        y_anchor.r4y = y_anchor.r4 + age_num*bar_height + padding_res/2;
+        y_anchor.y_bot = y_anchor.r4y + 15 ;
+        y_anchor.t1y = (y_anchor.r1y - y_anchor.r1)*0.66;
+    
+    
+        const cat_names = ['SOCIAL SERVICE', 'HEALTH', 'RELIGION'];
+        const avr_don = [150, 195, 894];
+    
+        const cScale = ['#12ceb4', '#ffeead', '#ff6f69', '#ffcc5c', '#88d8b0', '#666547'];
+    
+        // IDs of bars 
+        const bar_ids = [   'c1_rec_r1_r', 'c1_rec_r1_l',
+                            'c1_rec_r2_r', 'c1_rec_r2_l',
+                            'c1_rec_r3_r', 'c1_rec_r3_l',
+                            'c1_rec_r4_r', 'c1_rec_r4_l',
+                            'c2_rec_r1_r', 'c2_rec_r1_l',
+                            'c2_rec_r2_r', 'c2_rec_r2_l',
+                            'c2_rec_r3_r', 'c2_rec_r3_l',
+                            'c2_rec_r4_r', 'c2_rec_r4_l',
+                            'c3_rec_r1_r', 'c3_rec_r1_l',
+                            'c3_rec_r2_r', 'c3_rec_r2_l',
+                            'c3_rec_r3_r', 'c3_rec_r3_l',
+                            'c3_rec_r4_r', 'c3_rec_r4_l'];
+    
+        const num_cat = 3;
+        const num_reasons = 4;
+        const list_r = [[2,3,4], [1,3,4], [1,2,4], [1,2,3]];
+        // X axis
+        chart.append("line")
+                .attr("id", "x_line_reasons")
+                .attr("x1", x_anchor.x_left-15)
+                .attr("y1", y_anchor.y_bot)
+                .attr("x2", x_anchor.x_right)
+                .attr("y2", y_anchor.y_bot)
+                .attr("stroke", "grey");
+    
+                chart.append("g")
+                        .append("text")
+                        .attr('id', "text_r")  
+                        .attr("x", -45)
+                        .attr("y", y_anchor.t1y)                                             
+                        .text("PERSONAL") // change this text use res_names list
+    
+        chart.append("g")
+                        .append("text")
+                        .attr('id', "text_r")  
+                        .attr("x", -200)
+                        .attr("y", y_anchor.t1y)                                             
+                        .text("FAMILY") // change this text use res_names list
+    
+    
+        chart.append("g")
+                        .append("text")
+                        .attr('id', "text_r")  
+                        .attr("x", -310)
+                        .attr("y", y_anchor.t1y)                                             
+                        .text("JOB OPPOR.") // change this text use res_names list 
+        
+    
+        chart.append("g")
+                        .append("text")
+                        .attr('id', "text_r")  
+                        .attr("x", -450)
+                        .attr("y", y_anchor.t1y)                                             
+                        .text("SOCIETY") // change this text use res_names list
+            
+        chart.selectAll('text') 
+            .style("text-anchor", "end")            
+                    .attr("transform", "rotate(-90)" );
+    
+    
+    
+    
+        // horizontal extra lines
+        for (x_i=1; x_i<=4; x_i++)
+        {   
+            y_id = "r"+x_i;
+            r_id = "r"+x_i+"y";
+            t_id = "t"+x_i+"y";
+    
+            if (x_i!=4)
+            {
+                chart.append("line")
+                        .attr("x1", x_anchor.x_left-50)
+                        .attr("y1", y_anchor[r_id])
+                        .attr("x2", x_anchor.x_right)
+                        .attr("y2", y_anchor[r_id])
+                        .attr("stroke", "grey")
+                        .attr("stroke-width", 2)
+                        .attr("opacity", 0.3);    
+    
+            }
+    
+            
+            
+            y_coord = y_anchor[y_id] + bar_height/2;
+            for (x_ii=1; x_ii<=6; x_ii++)
+                {                       
+                    // age group helper lines
+                    chart.append("line")
+                        .attr("x1", x_anchor.x_left)
+                        .attr("y1", y_coord)
+                        .attr("x2", x_anchor.x_right)
+                        .attr("y2", y_coord)
+                        .attr("stroke", "grey")
+                        .attr("stroke-width", 0.3)
+                        .attr("stroke-dasharray", [2,2])
+                        .attr("opacity", 0.3);
+                    // age group cirles
+                    chart.append("circle")
+                        .attr("cx", x_anchor.x_text)
+                        .attr("cy", y_coord)
+                        .attr("r", 6.5)
+                        .attr("fill", cScale[x_ii-1])
+                    y_coord = y_coord + bar_height;
+    
+                }
+            }
+    
+    
+        // Main Vertical line on the left
+        chart.append("line")
+                .attr("id", "y_line_cat")
+                .attr("x1", x_anchor.x_left)
+                .attr("y1", y_anchor.y_top-20)
+                .attr("x2", x_anchor.x_left)
+                .attr("y2", y_anchor.y_bot+15)
+                .attr("opacity", 0.2)
+                .attr("stroke-width", 0.3)
+                .attr("stroke", "#006600");
+    
+    
+    
+        //colors
+    
+    
+    
+        //category 1 reason 1 above averages
+        // cat_id = c1_rec_r1_r, data_arg => data, x_anch => x_anchor.c1
+        // y_anch => y_anchor.r1
+        // color_r => right bar color, color_l => left bar color
+        // color_s => stroke color, cat_n => category number, res_n => reason number
+        // list_reasons => [2,3,4]
+    
+        chart.append("text")
+                .attr("id", "title_chart2")
+                .attr("x", width_2*0.35)
+                .attr("y", y_anchor.y_top-50)
+                .attr("text-anchor", "middle")
+                .style("font-size", "18px")
+                .text("Ratio of participants' donations according to different reasons by age groups ");
+    
+        chart.append("text")
+                .attr("id", "bottom_cat")
+                .attr("x", width_2*0.33)
+                .attr("y",  y_anchor.y_bot+50)
+                .attr("text-anchor", "middle")
+                .style("font-size", "18px")
+                .text("Charitable organization category");
+    
+    
+        for (ind_c=0; ind_c<3; ind_c++)
+        {   
+            chart.append("line")
+                .attr("id", "cat")
+                .attr("x1", x_anchor["c"+(ind_c+1)])
+                .attr("y1", y_anchor.y_top)
+                .attr("x2", x_anchor["c"+(ind_c+1)])
+                .attr("y2", y_anchor.y_bot)
+                .attr("stroke", "grey");
+            
+            chart.append("text")
+                .attr("x", x_anchor["c"+(ind_c+1)])
+                .attr("y", y_anchor.y_bot+20)
+                .attr("text-anchor", "middle")        
+                .text(function(){ return cat_names[ind_c];});
+            chart.append("text")
+                .attr("x", x_anchor["c"+(ind_c+1)])
+                .attr("y", y_anchor.y_top-10)
+                .attr("text-anchor", "middle")
+                .attr("text-style", 'bold')  
+                .text(function(){return "AVG $"+avr_don[ind_c];})
+    
+            //chart.append("circle")
+            //  .attr("cx", x_anchor["c"+(ind_c+1)])
+                //.attr("cy", y_anchor.y_top-10)
+            // .attr("fill", "yellow")
+            // .attr("stroke", "red") // change this porno
+            // .attr("r", 5);
+    
+            
+    
+            
+    
+    
+    
+    
+            for (ind_r=0; ind_r<4; ind_r++)
+            {
+                id_comp = ind_c*8 + ind_r * 2;
+                createBars( 
+                            bar_ids[id_comp], bar_ids[id_comp+1],
+                            data_donation[ind_c][ind_r], 
+                            x_anchor["c"+(ind_c+1)], y_anchor["r"+(ind_r+1)], 
+                            bar_height, bar_height_0,
+                            "#434d83", "#fd8d41", "white",
+                            ind_c +1, ind_r+1, list_r[ind_r]
+                            )
+    
+            
+            // console.log(list_r[ind_r][0]);
+            }
+        }
+    
+    
+        function createBars(cat_id1, cat_id2, data_arg, x_anch, y_anch, bar_height, bar_height_0, color_l, color_r, color_s,
+        cat_n, res_n, list_reasons)
+        {
+    
+            
+            class_id = "."+cat_id1; 
+    
+            chart.selectAll(cat_id1)
+            .data(data_arg)
+            .enter()
+            .append('rect')            
+                .attr('class', cat_id1)
+                .attr("id", function(d,i){return cat_id1+i+"";})
+                .attr('x', x_anch)
+                .attr('y', function(d, i){return (i*bar_height+y_anch);})
+                .attr('width', function(d){ console.log(d.r); return (d.rt*((d.r/100 * d.p))*10);})    
+                .attr('height', bar_height_0)
+                .attr('stroke', color_s)
+                .attr('fill', color_r)
+            .on("mouseover", function(d,i){
+                for (j=0; j<3; j++)
+                {   
+                    var tmp_id = ".c" + cat_n + "_rec_r"+res_n+"_l";
+                    
+                    var elem_class_r = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_r";       
+                    var elem_class_l = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_l";   
+                
+                    var id_l = "#c"+cat_n+"_rec_r"+res_n+"_l"+i+"";
+                    var id_r = "#c"+cat_n+"_rec_r"+list_reasons[j]+"_r"+i+"";      
+                    var id_l_ = "#c"+cat_n+"_rec_r"+list_reasons[j]+"_l"+i+"";     
+                    
+    
+                    d3.selectAll(tmp_id)                
+                        .attr("opacity", 0.3) // the left side
+                    d3.selectAll(elem_class_r)
+                        .attr("opacity", 0.3) // all other right sides
+                    d3.selectAll(elem_class_l)
+                        .attr("opacity", 0.3) // all other left sides
+                    
+    
+                    d3.selectAll(id_r)
+                        .transition()
+                        .duration(300)
+                        .attr("opacity", 1); 
+                    d3.selectAll(id_l)
+                        .transition()
+                        .duration(300)
+                        .attr("opacity", 1);
+                    d3.selectAll(id_l_)
+                        .transition()
+                        .duration(300)
+                        .attr("opacity", 1);
+                };
+    
+                d3.select(".tooltip")
+                    .attr("opacity", 1)
+                    .style("visibility", "visible")
+                    .html("Age_group: " + age_groups[i])
+                    .style("left", (d3.mouse(this)[0]+70) + "px")
+                    .style("background-color", cScale[i])
+                    .style("top", (d3.mouse(this)[1]+60) + "px");
+                
+            })
+            .on("mouseleave", function(d){
+                for (j=0; j<3; j++)
+                {   
+                    tmp_id = ".c" + cat_n + "_rec_r"+res_n+"_l";
+    
+                    var elem_class_r = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_r";       
+                    var elem_class_l = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_l";
+                    d3.selectAll(elem_class_r).transition().duration(150).attr("opacity", 1)
+                    d3.selectAll(elem_class_l).transition().duration(150).attr("opacity", 1)
+                    d3.selectAll(tmp_id).transition().duration(150).attr("opacity", 1)
+                };
+    
+                d3.select(".tooltip")
+                    .style("visibility", "hidden");
+            });
+    
+            
+    
+        // Three function that change the tooltip when user hover / move / leave a cell
+        
+        // category 1 reason 1 below averages
+        class_id = "."+cat_id2;
+        chart.selectAll(class_id)
+            .data(data_arg)
+            .enter()
+            .append('rect')
+            .attr('class', cat_id2)
+            .attr("id", function(d,i){return cat_id2+i+"";})
+            .attr('x', function(d,i){return (x_anch-(d.rt*(100-d.r)*d.p*0.01)*10-2);})
+            .attr('y', function(d, i){return (i*bar_height+y_anch);})
+            .attr('width', function(d){return (d.rt*((100-d.r)*d.p*0.01)*10);}) 
+            .attr('height', bar_height_0)
+            .attr('stroke', color_s)
+            .attr('fill', color_l)    
+            .on("mouseover", function(d,i){
+                    for (j=0; j<3; j++)
+                    {   
+                        tmp_id = ".c" + cat_n + "_rec_r"+res_n+"_r";
+                        
+                        var elem_class_r = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_r";       
+                        var elem_class_l = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_l";   
+                        
+                        var id_r = "#c"+cat_n+"_rec_r"+list_reasons[j]+"_r"+i+"";           
+                        var id_l = "#c"+cat_n+"_rec_r"+list_reasons[j]+"_l"+i+"";
+                        var id_l_ = "#c" + cat_n + "_rec_r" + res_n +"_r"+i+"";
+    
+                        d3.selectAll(elem_class_r).attr("opacity", 0.3)
+                        d3.selectAll(elem_class_l).attr("opacity", 0.3)
+                        d3.selectAll(tmp_id).attr("opacity", 0.3)
+    
+                        d3.selectAll(id_r)
+                            .transition()
+                            .duration(300)
+                            .attr("opacity", 1); 
+                        d3.selectAll(id_l)
+                            .transition()
+                            .duration(300)
+                            .attr("opacity", 1);
+                        d3.selectAll(id_l_)
+                            .transition()
+                            .duration(300)
+                            .attr("opacity", 1);
+        } ;
+    
+        d3.select(".tooltip")
+                    .attr("opacity", 1)
+                    .style("visibility", "visible")
+                    .html("<center>Age_group: " + age_groups[i] + "</center>")
+                    .style("left", (d3.mouse(this)[0]-90) + "px")
+                    .style("top", (d3.mouse(this)[1]+60) + "px");
+        })
+        .on("mouseleave", function(){
+        for (j=0; j<3; j++)
+        {   
+            tmp_id = ".c" + cat_n + "_rec_r"+res_n+"_r";
+    
+            var elem_class_r = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_r";       
+            var elem_class_l = ".c" + cat_n +"_rec_r" + list_reasons[j] + "_l";
+            d3.selectAll(elem_class_r).transition().duration(150).attr("opacity", 1)
+            d3.selectAll(elem_class_l).transition().duration(150).attr("opacity", 1)
+            d3.selectAll(tmp_id).transition().duration(150).attr("opacity", 1)
+        };
+        d3.select(".tooltip")
+                    .style("visibility", "hidden");
+        
+        });
+    
+            
+    
+    
+        }
+    
+    
+    </script>
+    <div class="text_ch2"> 
+        <p id="desc">
+            
+         <h4> </h4> 
+          <br/>
+          <br/>
+          <h3>Align with you participants by knowing their reasons to participate</h3>
+    
+          <h2></h2>
+    
+          <h3></h3>
+        </p>
+    </div>
+    </div>
