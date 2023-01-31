@@ -1,0 +1,119 @@
+
+  /* Style the body */
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    height: 650px;
+  }
+  
+  /* Header/logo Title */
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: #f6a08c;
+    color: white;
+  }
+  
+  /* Increase the font size of the heading */
+  .header h1 {
+    font-size: 45px;
+  }
+  
+  .button_1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-size: 20px;
+  }
+  
+ 
+  /* Column container */
+  
+  /* Footer */
+  
+
+ 
+
+  
+/* CHART 1 */
+  div.chart_1_wrapper {
+    
+    width: 100%;
+    height: 800px;
+    
+  }
+
+      div.text_main_stats{
+        float:right;
+        width: 30%;
+        height: 330px;
+        background-color: #ffffff;
+      }
+
+
+/* General styles*/
+
+svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  div#layout {
+    text-align: center;
+  }
+
+
+.column {
+    float: left;
+    width: 32.33%;
+    background-color: #0fa09d;
+    height: 300px;
+    border-color: #ffffff;
+    text-align: center;
+    font-size: 72px;
+    font-weight: 600;
+    color: #ffffff;
+    justify-content: center;
+    border: 5px solid;
+    display: flex;
+    align-items: center;
+
+  }
+  p{
+    display: inline-block;
+  vertical-align: middle;
+  }
+  a:link {
+    text-decoration: none;
+    color: white;
+  }
+  
+  a:visited {
+    text-decoration: none;
+    color: white;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+    color: white;
+  }
+  
+  a:active {
+    text-decoration: underline;
+    color: white;
+  }
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .footer{
+    
+    height: 100px;
+    border-color: #ffffff;
+    text-align: center;
+    
+    justify-content: center;
+    display: flex;
+    align-items: center;
+
+  }

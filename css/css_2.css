@@ -1,0 +1,21 @@
+.row2:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+div#layout {
+  text-align: center;
+}
+
+
+.chart_2 {
+  float: left;
+  width: 70%;
+
+}
+.text_ch2{
+  float:left;
+  width: 30%;
+}
+

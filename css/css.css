@@ -1,68 +1,20 @@
 
-body {
-    font-family: 'Open Sans', sans-serif;
-  }
-  
-  div#layout {
-    text-align: center;
-  }
 
-  div.second_row, div.third_row
-  {
-    width: 100%;
-  }
   
-  div.description_text_bar, div.description_text_circleb, div.description_text_pie
-  {
-    background-color: #FFFBAC;
-    font-size: 13px;
-    padding: 10;
-    text-align: justify;
-    text-justify: auto;
-    padding:10;
-  }
-  div.first_row
-  {
-    width: 100%;
-    height: 260px;
-    background-color: #ffffff;
-  }
   
-      div.description_text_pie
-      {
-        float:left;
-        width: 20%;
-        height: 240px;
-        
-      }
+ 
     
 
-      div.pie_text
-      {
-        float:left;
-        width: 35%;
-        height: 260px;    
-        background-color: #ffffff;
-      }
 
-            div.pies_wrapper
-            {
-              float: left;
-              width: 40%;
-              height: 260px;
-              background-color: #ffffff;
-            }
-
+           
                   div.buttons
                   {
-                    float:top;
-                    width: 100%;
+                    float:left;
+                    width: 25%;
                     height: 60px;
                     background-color: #ffffff;
                     padding: 0 0 0 0;
-                    text-align: center;
                   }
-
                   .button_1 
                   {
                     /* Green */                   
@@ -82,7 +34,7 @@ body {
                   }
                   .button_1:hover {
                     background-color: #ffffff;
-                    color: #000000;
+                    color: #fffefe;
                     border: 2px solid #366661;
                     border-radius: 8px;
                   }
@@ -95,100 +47,14 @@ body {
                     text-align: center;
                     padding: 0 0 0 0;
                   }
+                  
 
-                  div.pie2
-                  {
-                    float:left;
-                    width: 33.3%;
-                    height: 200px;
-                    background-color:#ffffff;
-                    padding: 0 0 0 0;
-                    
-                  }
-                    svg#gender_pie
-                    {
-                      background-color:#ffffff;
-                      display: block;
-                      margin: auto;
-                    }
-                    svg#education_pie
-                    {
-                      background-color:#ffffff;
-                      display: block;
-                      margin: auto;
-                    }
-                    svg#income_pie
-                    {
-                      background-color:#ffffff;
-                      display: block;
-                      margin: auto;
-                    }
-
-                  div.pie3
-                  {
-                    float:left;
-                    top: 10%;
-                    width: 33.3%;
-                    height: 200px;
-                    background-color: #ffffff;
-                    padding: 0 0 0 0;
-                  }
+                 
 
   
   
-  div.main_stats {
-    float:left;
-    width: 70%;
-    height: 600px;
-    margin: left;    
-    background-color: #ffffff;
-  }
-
-      div.text_main_stats{
-        float:right;
-        width: 30%;
-        height: 330px;
-        background-color: #ffffff;
-      }
-                div.description_text_bar
-                {
-                  float:left;
-                  width: 25%;
-                  height: 240px;    
-                }
 
 
-
-  div.categories_stats
-  {
-    float:left;
-    width: 35%;
-    height: 600px;
-    margin: left;   
-    background-color: #ffffff;
-  }
-
-  div.categories_stats_2
-  {
-    float:left;
-    width: 35%;
-    height: 600px;
-    margin: left;   
-    background-color: #ffffff;
-  }
-  div.categories_text{
-    float:right;
-    width: 30%;
-    height: 340px;
-    background-color: #ffffff;
-  }
-
-                div.description_text_circleb
-                {
-                  float:left;
-                  width: 25%;
-                  height: 240px;    
-                }
     
   svg {
     width: 100%;
@@ -196,7 +62,7 @@ body {
   }
   
   rect#bar_v {
-    fill: #00dfc8;
+    fill: #00bedf;
   }
 
   rect#bar_d {
@@ -255,27 +121,15 @@ body {
     font-weight: 400;
   }
   
-  text.source {
-    font-size: 10px;
-  }
 
-  #pers_pie{
-    border-color: #e0255d;
-  }
 
- 
-
- div.bottom_text
- {
-  width: 100%;
-  height: 50px;
-  background-color: rgb(245, 187, 13);
+ div.chart_1{
+  float: left;
+  width: 75%;
  }
 
- .text_circular_bars
- {
-  text-align: middle;
-  font-size: 15px;
-  font-weight: bold;
-  fill: #366661;
- }
+ .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
